@@ -158,7 +158,7 @@ const htmlAmProductos = `
 	</form>
 
 
-</div> `;
+</div>`;
 var formulario='';
 
 var txtNombre='';

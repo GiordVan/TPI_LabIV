@@ -3,17 +3,17 @@ const htmlCarrusel =
 `
     <div class="slider-container">
         <div class="slide active">
-            <img src="/img/slider/imagen1.png" alt="Imagen 1" style="width:100%; height:100%; object-fit:cover;">
+            <img src="/tienda/assets/img/Carrusel/Carrusel_1.jpg" alt="Imagen 1" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="slide">
-            <img src="/img/slider/imagen2.png" alt="Imagen 2" style="width:100%; height:100%; object-fit:cover;">
+            <img src="/tienda/assets/img/Carrusel/Carrusel_2.jpg" alt="Imagen 2" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div class="slide">
-            <img src="/img/slider/imagen3.png" alt="Imagen 3" style="width:100%; height:100%; object-fit:cover;">
+            <img src="/tienda/assets/img/Carrusel/Carrusel_3.jpg" alt="Imagen 3" style="width:100%; height:100%; object-fit:cover;">
         </div>
 
-        <button class="prev" ">&#10094;</button>
-        <button class="next" ">&#10095;</button>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
 
         <div class="dots">
             <span class="dot active-dot" ></span>
@@ -28,8 +28,8 @@ const htmlCarrusel =
 let slideIndex = 1;
 export async function Carrusel(){
     let d = document
-    let seccionCarrusel = d.querySelector(".carrusel");
-    let seccionLogin = d.querySelector(".seccionLogin");
+    let seccionCarrusel = document.querySelector(".carrusel");
+    let seccionLogin = document.querySelector(".seccionLogin");
     
     seccionLogin.innerHTML = "";
     seccionCarrusel.innerHTML = htmlCarrusel;
@@ -49,11 +49,11 @@ export async function Carrusel(){
     showSlides(slideIndex);
 }
 function nextSlide(){
-    changeSlide(1);
+    changeSlide(-1);
 }
 
 function prevSlide(){
-    changeSlide(-1);
+    changeSlide(1);
 }
 
 function changeSlide(n) {

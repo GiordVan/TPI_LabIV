@@ -1,67 +1,199 @@
-*{
-    border:0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.vistaProducto{
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.vistaProducto .imagen{
-    flex: 1 1 ;
-    
+.modal.oculto {
+    display: none;
 }
 
-
-.vistaProducto .texto{
-    flex: 3 1  ;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    padding: 1rem;
-}
-
-#nameProducto{
-    width: 100%;
-    margin: 2rem 0;
-    font-size: 3rem;
-    font-weight: bold;
-}
-#descripcionProducto{
-    margin: 2rem 0;
-    line-height: 2rem;
-    text-align: justify;
-}
-
-#precioProducto{
-    width: 100%;
-    margin: 2rem 0;
-    font-size: 3rem;
-    font-weight: bold;
-    color: rgb(189, 146, 39);
-}
-.form-group{
-    width: 100%;
-}
-.form-group label{
-    display:inline-block;
-    width: 100%;
-    font-weight: bold;
-}
-
-.form-group input{
-    border: 1px solid black;
+.modalContent {
+    background-color: white;
+    padding: 2rem;
     border-radius: 1rem;
-    padding: 1rem;
-    text-align: center;
-    width: 8rem;
-    font-size: 1.5rem;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 80%;
+    min-height: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
 }
-#btnComprar{
-    margin: 2rem 0;
-    padding: 1.2rem 1.5rem;
-    color:white;
-    background-color: black;
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: black;
+}
+
+.vistaProducto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.vistaProducto .productoDetalle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    text-align: left;
+    width: 100%;
+}
+
+.vistaProducto img {
+    width: 40%;
+    height: auto;
+    border-radius: 1rem;
+    max-width: 100%;
+}
+
+.imagenProducto {
+    object-fit: contain;
+    min-width: 200px;
+    max-width: 10%;
+}
+
+.vistaProducto .productoDetalle .detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.vistaProducto h2 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 2rem 0;
+}
+
+.vistaProducto p {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    padding: 1rem 0;
+}
+
+#cantidadProducto {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    width: 6rem;
+}
+
+#btnComprarVistaProducto {
+    transition: filter 0.3s ease;
+}
+
+#btnComprarVistaProducto:hover {
+    filter: brightness(85%);
+}
+
+#precioVista {
+    font-size: 1.6rem;
+}
+
+@media (max-width: 768px) {
+    .modalContent {
+        padding: 1.5rem;
+        width: 95%;
+        max-height: 90%;
+    }
+
+    .vistaProducto .productoDetalle {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .vistaProducto img {
+        width: 60%;
+    }
+
+    .detalles {
+        text-align: center;
+    }
+
+    .vistaProducto h2 {
+        font-size: 1.8rem;
+    }
+
+    .vistaProducto p {
+        font-size: 1.1rem;
+    }
+
+    #cantidadProducto {
+        width: 4rem;
+    }
+
+    #btnComprarVistaProducto {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalContent {
+        padding: 1rem;
+        max-height: 100%;
+        border-radius: 0.5rem;
+    }
+
+    .vistaProducto .productoDetalle {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .vistaProducto img {
+        width: 80%;
+        margin-bottom: 1rem;
+    }
+
+    .detalles {
+        gap: 0.8rem;
+    }
+
+    .vistaProducto h2 {
+        font-size: 1.6rem;
+    }
+
+    .vistaProducto p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    #cantidadProducto {
+        padding: 0.4rem;
+        font-size: 1rem;
+        width: 3.5rem;
+    }
+
+    #btnComprarVistaProducto {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .close {
+        font-size: 1.5rem;
+    }
 }

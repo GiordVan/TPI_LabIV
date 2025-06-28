@@ -30,7 +30,7 @@ const htmlProductos =
    </table>
    </div>
    <!-- /.card-body -->
-</div> `; 
+</div>`; 
 
 export async function Productos(){
     let d = document
@@ -86,7 +86,7 @@ async function borrar(){
         title: 'Está seguro que desea eliminar el registro?',
         showDenyButton: true,
         confirmButtonText: 'Si',
-        denyButtonText: `Cancelar`,
+        denyButtonText: Cancelar,
   
         focusDeny: true
       }).then((result) => {
@@ -150,4 +150,3 @@ function llenarTabla(res){
     });
 
 } 
-  

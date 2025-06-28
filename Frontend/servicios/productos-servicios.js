@@ -60,8 +60,10 @@ async function listarPorCategoria(idCategoria) {
     const newUrl = new URL(url);
     newUrl.searchParams.append('idCategoria', idCategoria);
     return await fetch(newUrl)
-        .then(respuesta => respuesta.json());
+        .then(respuesta => respuesta.json())
+        .then(productos => productos.filter(producto => producto.idCategoria === idCategoria));
 }
+
 
 export const productosServices = {
     listar,
