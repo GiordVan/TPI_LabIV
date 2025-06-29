@@ -133,7 +133,7 @@
     text-align: center;
     opacity: 60%;
     padding: 0.8rem 1.5rem;
-    color: black;
+    color: #000;
     border: none;
     border-radius: 0.5rem;
     font-weight: bold;
@@ -141,6 +141,7 @@
     transition: background 0.3s ease, color 0.3s ease;
     max-height: 40px;
     margin: 0.5rem auto;
+    background-color: #e9ea8b;
 }
 
 .btnComprar:hover,
