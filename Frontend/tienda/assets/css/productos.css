@@ -24,7 +24,7 @@
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     margin-top: 1rem;
-    background-color: #f9f9f9;
+    background-color: #e9ea8b;
     transition: display 0.3s ease;
 }
 
@@ -106,7 +106,7 @@
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: #160d02;
 }
 
 .decoracionLinea {
@@ -148,7 +148,7 @@
 .btnCategoria.categoriaActiva,
 #btnComprarVistaProducto {
     opacity: 100%;
-    background: #dc2829;
+    background: #ff7200;
     color: white;
 }
 
