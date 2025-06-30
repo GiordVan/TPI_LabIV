@@ -20,7 +20,7 @@ function htmlItemProducto(id, imagen, nombre, precio) {
             <img src="${imagen}" alt="${nombre}" class="productoImagen">
             <div class="decoracionLinea"></div>
             <p class="productoPrecio">$${precio}</p>
-            <button class="btnComprar" data-idProducto="${id}">Comprar</button>
+            <button class="btnComprar" data-idProducto="${id}">Solicitar</button>
         </div>
     </div>
     `;
