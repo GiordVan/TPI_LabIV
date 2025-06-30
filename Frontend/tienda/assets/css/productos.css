@@ -27,7 +27,9 @@
     background-color: #e9ea8b;
     transition: display 0.3s ease;
 }
-
+.barrabusqueda{
+    text-align: center
+}
 .loaderContainer {
     position: fixed;
     top: 0;
