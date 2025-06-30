@@ -2,6 +2,8 @@
 from config.database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+from models.categorias import Categoria
+
 
 class Libro(Base):
     __tablename__ = "libros"
@@ -15,3 +17,4 @@ class Libro(Base):
 
     # Relación con categoría
     categoria = relationship("Categoria", back_populates="libros")
+    prestamos = relationship("Prestamo", back_populates="libro")

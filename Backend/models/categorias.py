@@ -1,5 +1,6 @@
 from config.database import Base
-from sqlalchemy import Column, Integer, String, relationship
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 class Categoria(Base):
     __tablename__ = "categorias"

@@ -1,8 +1,8 @@
-from pydantic import EmailStr, SecretStr, Field, field_validator, ConfigDict
+from pydantic import EmailStr, SecretStr, Field, field_validator, ConfigDict, BaseModel, PositiveInt
 from typing import Literal, Optional
-from schemas.base import Base
 
-class Usuario(Base):
+class Usuario(BaseModel):
+    id: Optional[PositiveInt] = None
     nombre: str = Field(min_length=3, max_length=50)
     email: EmailStr = Field(max_length=100)
     rol: Optional[Literal["Bibliotecario", "Cliente"]] = "Cliente"
@@ -15,12 +15,12 @@ class UsuarioAuth(Usuario):
     model_config = ConfigDict(
         validate_default=True,
         validate_assignment=True,
-        from_attributes=True  # ✅ Reemplaza a la clase Config
+        from_attributes=True
     )
 
     contrasenia: SecretStr = Field(min_length=8, max_length=255)
 
-    @field_validator("contrasenia")  # ✅ Cambiado a 'contrasenia'
+    @field_validator("contrasenia")
     def validar_password(cls, password_secret: SecretStr) -> SecretStr:
         p = password_secret.get_secret_value()
 
@@ -35,6 +35,7 @@ class UsuarioAuth(Usuario):
             )
 
         return password_secret
-    
-    class Config:
-        from_attributes = True
+
+class UsuarioLogin(BaseModel):
+    email: EmailStr
+    contrasenia: SecretStr = Field(min_length=8, max_length=255)

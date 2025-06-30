@@ -2,6 +2,8 @@ from config.database import Base
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
+from models.libros import Libro
+
 
 
 class Prestamo(Base):

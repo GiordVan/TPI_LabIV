@@ -1,10 +1,9 @@
 from typing import Optional
-from schemas.base import Base
-from pydantic import Field
+from pydantic import Field, ConfigDict, BaseModel, PositiveInt
 
-class Categoria(Base):
+class Categoria(BaseModel):
+    id: Optional[PositiveInt] = None
     nombre: str = Field(max_length=100)
     descripcion: Optional[str] = Field(default="Sin descripción", max_length=255)
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
