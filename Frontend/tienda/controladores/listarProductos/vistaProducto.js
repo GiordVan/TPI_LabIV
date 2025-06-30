@@ -39,11 +39,11 @@ export async function vistaProducto() {
             console.error('Botón de cerrar no encontrado.');
         }
 
-        const btnComprar = document.querySelector('#btnComprarVistaProducto');
-        if (btnComprar) {
-            btnComprar.addEventListener('click', registrarCompra);
+        const btnSolicitar = document.querySelector('#btnComprarVistaProducto');
+        if (btnSolicitar) {
+            btnSolicitar.addEventListener('click', registrarSolicitud);
         } else {
-            console.error('Botón de compra no encontrado.');
+            console.error('Botón de solicitud no encontrado.');
         }
 
         window.addEventListener('popstate', manejarCambioHistorial);
@@ -51,6 +51,10 @@ export async function vistaProducto() {
 }
 
 function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
+    // Fecha actual en formato ISO para valor por defecto en input type="date"
+    const hoy = new Date();
+    const fechaActualISO = hoy.toISOString().split('T')[0]; // yyyy-mm-dd
+
     return `
         <div class="productoDetalle">
             <img src="${imagen}" alt="${nombre}" class="imagenProducto">
@@ -58,8 +62,20 @@ function htmlVistaProducto(id, nombre, descripcion, precio, imagen) {
                 <h2>${nombre}</h2>
                 <p>${descripcion}</p>
                 <p id="precioVista"><strong>Precio:</strong> $${precio}</p>
-                <p>Cantidad:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" id="cantidadProducto" value="1" min="1"></p>
-                <button class="btnComprar" id="btnComprarVistaProducto" data-idproducto="${id}">Comprar</button>
+
+                <!-- Fecha de solicitud tipo date editable con valor por defecto hoy -->
+                <p>
+                    Fecha de solicitud:&nbsp;&nbsp;&nbsp;
+                    <input type="date" id="fechaSolicitud" value="${fechaActualISO}" />
+                </p>
+
+                <!-- Fecha de devolución tipo date vacía inicialmente -->
+                <p>
+                    Fecha de devolución:&nbsp;&nbsp;&nbsp;
+                    <input type="date" id="fechaDevolucion" />
+                </p>
+
+                <button class="btnComprar" id="btnComprarVistaProducto" data-idproducto="${id}">Solicitar</button>
             </div>
         </div>
     `;
@@ -89,46 +105,84 @@ function manejarCambioHistorial() {
     }
 }
 
-function registrarCompra() {
+// Función para convertir fecha ISO (yyyy-mm-dd) a dd/mm/yyyy sin problemas de zona horaria
+function isoADDMYYYY(fechaISO) {
+    const partes = fechaISO.split('-'); // ["2025", "06", "08"]
+    const año = partes[0];
+    const mes = partes[1];
+    const dia = partes[2];
+    return `${dia}/${mes}/${año}`;
+}
+
+function registrarSolicitud() {
     const session = getUsuarioAutenticado();
+
     if (!session.autenticado) {
-        alert('Debe iniciar sesión para realizar una compra');
+        alert('Debe iniciar sesión para realizar una solicitud');
         cerrarModal();
         login();
         return;
     }
 
     const idProducto = document.querySelector('#btnComprarVistaProducto').getAttribute('data-idproducto');
-    const cantidad = document.querySelector('#cantidadProducto').value;
     const nombreProducto = document.querySelector('.productoDetalle h2').textContent;
 
-    const precio = document.querySelector('#precioVista').textContent.split('$')[1];
+    // Leer fechas en formato ISO yyyy-mm-dd
+    const fechaSolicitud = document.getElementById('fechaSolicitud').value;
+    const fechaDevolucion = document.getElementById('fechaDevolucion').value;
 
-    const idUsuario = session.id;
+    if (!fechaSolicitud) {
+        alert('Por favor ingrese una fecha de solicitud');
+        return;
+    }
+
+    if (!fechaDevolucion) {
+        alert('Por favor ingrese una fecha de devolución');
+        return;
+    }
+
+    const idUsuario = session.idUsuario;
     const emailUsuario = session.email;
-
-    const fecha = new Date();
-    const fechaFormateada = `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()}`;
 
     const despachado = false;
 
-    const datosCompra = {
-        id: idUsuario,
-        emailUsuario: emailUsuario,
-        idProducto: idProducto,
-        nombreProducto: nombreProducto,
-        cantidad: cantidad,
-        fecha: fechaFormateada,
-        despachado: despachado
+    // Convertir fechas a formato dd/mm/yyyy usando la función corregida
+    const fechaSolicitudDDMMYYYY = isoADDMYYYY(fechaSolicitud);
+    const fechaDevolucionDDMMYYYY = isoADDMYYYY(fechaDevolucion);
+
+    const datosSolicitud = {
+        idUsuario,
+        emailUsuario,
+        idProducto,
+        nombreProducto,
+        fechaSolicitud: fechaSolicitudDDMMYYYY,
+        fechaDevolucion: fechaDevolucionDDMMYYYY,
+        despachado
     };
 
-    ventasServices.crear(idUsuario, emailUsuario, idProducto, nombreProducto, cantidad, fechaFormateada, despachado)
-        .then(() => {
-            alert('Compra finalizada');
-            location.replace("tienda.html");
-        })
-        .catch(error => {
-            console.error('Error al registrar la compra', error);
-            alert('Hubo un error al procesar su compra');
-        });
+    ventasServices.crear(
+        idUsuario,
+        emailUsuario,
+        idProducto,
+        nombreProducto,
+        fechaSolicitudDDMMYYYY,
+        fechaDevolucionDDMMYYYY,
+        despachado
+    )
+    .then(() => {
+        guardarSolicitudLocal(datosSolicitud);
+        alert('Solicitud registrada');
+        location.replace("tienda.html");
+    })
+    .catch(error => {
+        console.error('Error al registrar la solicitud', error);
+        alert('Hubo un error al procesar su solicitud');
+    });
+}
+
+function guardarSolicitudLocal(solicitud) {
+    const key = `solicitudes_usuario_${solicitud.idUsuario}`;
+    let solicitudes = JSON.parse(localStorage.getItem(key)) || [];
+    solicitudes.push(solicitud);
+    localStorage.setItem(key, JSON.stringify(solicitudes));
 }
