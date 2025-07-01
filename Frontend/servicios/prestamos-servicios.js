@@ -115,7 +115,6 @@ async function borrar(id){
     }
 }
 
-// Opcional: Filtrar por usuario o estado
 async function listarPorUsuario(usuario_id) {
     const newUrl = new URL(url);
     newUrl.searchParams.append('usuario_id', usuario_id);

@@ -3,15 +3,12 @@ import { librosServices } from "../../../servicios/libros-servicios.js";
 import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 
 export async function abrirModalPrestamo(prestamo = null) {
-    // Eliminar modal previo
     const modalExistente = document.querySelector(".modal-overlay");
     if (modalExistente) modalExistente.remove();
 
-    // Obtener libros y usuarios para los <select>
     const libros = await librosServices.listar();
     const usuarios = await usuariosServices.listar();
 
-    // Crear el modal
     const modal = document.createElement("div");
     modal.classList.add("modal-overlay");
     modal.innerHTML = `
@@ -54,7 +51,7 @@ export async function abrirModalPrestamo(prestamo = null) {
 
     document.body.appendChild(modal);
 
-    const form = modal.querySelector(".form-usuario"); // reutilizamos clase
+    const form = modal.querySelector(".form-usuario");
     const btnCancelar = modal.querySelector(".btn-cancelar");
 
     btnCancelar.addEventListener("click", () => modal.remove());

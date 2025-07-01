@@ -29,11 +29,9 @@ export async function categorias() {
 
     const tbody = tabla.querySelector("tbody");
 
-    // Declaramos lista para usarla más abajo
     let lista = [];
 
     try {
-        // 🔹 Cargar categorías
         lista = await categoriasServices.listar();
         lista.forEach(categoria => {
             const tr = document.createElement("tr");
@@ -64,7 +62,6 @@ export async function categorias() {
 
         izquierda.appendChild(tabla);
 
-        // 🔹 Crear columna derecha
         const derecha = document.createElement("div");
         derecha.classList.add("usuarios-derecha");
 
@@ -74,17 +71,14 @@ export async function categorias() {
         cardCrear.addEventListener("click", () => abrirModalCategoria());
         derecha.appendChild(cardCrear);
 
-        // 🔹 Obtener libros y préstamos
         const libros = await librosServices.listar();
         const prestamos = await prestamosServices.listar();
 
-        // Mapa de libros por ID
         const mapaLibros = {};
         libros.forEach(libro => {
             mapaLibros[libro.id] = libro;
         });
 
-        // Conteo de libros por categoría
         const cantidadPorCategoria = {};
         libros.forEach(libro => {
             const idCat = libro.categoria?.id ?? null;
@@ -102,7 +96,6 @@ export async function categorias() {
             }
         }
 
-        // Conteo de préstamos por categoría
         const prestadosPorCategoria = {};
         prestamos.forEach(prestamo => {
             const libroId = prestamo.libro_id || prestamo.libro;
@@ -126,7 +119,6 @@ export async function categorias() {
         const catMaxLibros = lista.find(c => c.id === maxLibrosCatId);
         const catMaxPrestados = lista.find(c => c.id === maxPrestadosCatId);
 
-        // 🔹 Función para crear tarjetas
         function crearCard(texto, numero) {
             const card = document.createElement("div");
             card.classList.add("card", "card-total");
@@ -152,7 +144,6 @@ export async function categorias() {
             crearCard("Categoría de libros más popular (prestados):", catMaxPrestados ? `${catMaxPrestados.nombre} (${maxPrestadosCantidad})` : "N/A")
         );
 
-        // 🔹 Agregar todo al DOM
         contenedor.appendChild(izquierda);
         contenedor.appendChild(derecha);
         main.appendChild(contenedor);

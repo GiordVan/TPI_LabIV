@@ -1,4 +1,3 @@
-// newCategoria.js
 import { categoriasServices } from "../../../servicios/categorias-servicios.js";
 
 export function abrirModalCategoria(categoria = null) {

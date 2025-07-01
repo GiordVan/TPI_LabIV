@@ -8,7 +8,7 @@ class Usuario(BaseModel):
     rol: Optional[Literal["Bibliotecario", "Cliente"]] = "Cliente"
     model_config = ConfigDict(
         validate_assignment=True,
-        extra='ignore'  # o 'forbid', según lo que necesites
+        extra='ignore' 
     )
 
 class UsuarioAuth(Usuario):

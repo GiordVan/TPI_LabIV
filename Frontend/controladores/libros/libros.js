@@ -1,5 +1,5 @@
 import { librosServices } from "../../../servicios/libros-servicios.js";
-import { prestamosServices } from "../../../servicios/prestamos-servicios.js"; // asumo que tienes este servicio
+import { prestamosServices } from "../../../servicios/prestamos-servicios.js";
 import { abrirModalLibro } from "./newLibro.js";
 
 export async function libros() {
@@ -82,7 +82,6 @@ export async function libros() {
     cardCrear.addEventListener("click", () => abrirModalLibro());
     derecha.appendChild(cardCrear);
 
-    // --- Aquí agregamos las cards con los totales ---
     try {
         const totalLibros = await librosServices.listar();
         const totalPrestados = await prestamosServices.listar();

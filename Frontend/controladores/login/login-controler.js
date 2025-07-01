@@ -296,11 +296,10 @@ export function logout() {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("usuario");
 
-    // Actualizar UI: mostrar login y ocultar usuario
     const btnLoginRegister = document.querySelector('#btnLoginRegister');
     const usuarioAutenticado = document.querySelector('#usuarioAutenticado');
     if (btnLoginRegister) btnLoginRegister.style.display = 'flex';
     if (usuarioAutenticado) usuarioAutenticado.style.display = 'none';
 
-    location.hash = "#/login"; // Redirigir a login
+    location.hash = "#/login";
 }

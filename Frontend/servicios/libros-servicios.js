@@ -121,7 +121,6 @@ async function borrar(id){
     }
 }
 
-// Opcional: si necesitas filtrar por categoría
 async function listarPorCategoria(categoria_id) {
     const newUrl = new URL(url);
     newUrl.searchParams.append('categoria_id', categoria_id);

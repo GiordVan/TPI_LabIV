@@ -1,8 +1,6 @@
-// newUsuario.js
 import { usuariosServices } from "../../../servicios/usuarios-servicios.js";
 
 export function abrirModalUsuario(usuario = null) {
-    // Eliminar cualquier modal previo
     const modalExistente = document.querySelector(".modal-overlay");
     if (modalExistente) modalExistente.remove();
 
