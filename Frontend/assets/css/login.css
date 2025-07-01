@@ -1,0 +1,134 @@
+@import url('base.css');
+
+.seccionLogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--FuentePrincipal);
+}
+
+.contenedorLogin {
+  background-color: var(--MarronOscuro);
+  padding: 3rem 4rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+  max-width: 80vh;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.cajaLogin h2 {
+  color: var(--Blanco);
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: var(--FuenteSecundaria);
+}
+
+.formLogin .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.formLogin label {
+  color: var(--Blanco);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.formLogin input,
+.formLogin select {
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background-color: #2c2c3a;
+  color: var(--Blanco);
+  font-size: 1.1rem;
+  font-family: var(--FuentePrincipal);
+}
+
+.formLogin input::placeholder {
+  color: #aaa;
+}
+
+.formLogin input:focus,
+.formLogin select:focus {
+  outline: 2px solid var(--MarronClaro);
+  background-color: #383848;
+}
+
+.btnLogin {
+  background-color: var(--Naranja);
+  color: var(--Blanco);
+  font-size: 1.2rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 0.6rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: var(--FuenteSecundaria);
+  letter-spacing: 0.5px;
+}
+
+.btnLogin:hover {
+  background-color: var(--MarronClaro);
+}
+
+#subtituloLogin {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #ccc;
+  font-size: 1.4rem;
+}
+
+#subtituloLogin a {
+  color: var(--Naranja);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#subtituloLogin a:hover {
+  text-decoration: underline;
+}
+
+/* 🌐 RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .contenedorLogin {
+    padding: 2rem;
+    max-width: 80%;
+  }
+
+  .cajaLogin h2 {
+    font-size: 1.8rem;
+  }
+
+  .formLogin input,
+  .formLogin select {
+    font-size: 1rem;
+  }
+
+  .btnLogin {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contenedorLogin {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .cajaLogin h2 {
+    font-size: 1.6rem;
+  }
+
+  .btnLogin {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,84 @@
+@import url('base.css');
+
+.dashboard-bibliotecario {
+    padding: 2rem;
+    max-width: 1024px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Contenedor perfil */
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: left;
+}
+
+/* Imagen del perfil */
+.perfil img {
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 3px solid #ccc;
+}
+
+/* Información del usuario */
+.info-usuario h2 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+/* Título opcional */
+.titulo {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Grid responsive 2x2 */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ← 2 columnas fijas */
+    gap: 2rem;
+    width: 100%;
+}
+
+/* Tarjetas */
+.card {
+    background: var(--Beige);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+}
+
+.card:hover {
+    filter: brightness(0.95);
+    transform: translateY(-3px);
+}
+
+/* Responsive extra: apilar imagen e info en columna */
+@media (max-width: 600px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* ← solo una columna en móviles */
+    }
+
+    .perfil {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}

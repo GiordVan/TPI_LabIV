@@ -1,10 +1,6 @@
+import { getToken } from "../servicios/auth.js";
+
 const url = "http://127.0.0.1:8000/usuarios";
-
-//API-REST USUARIOS//
-
-function getToken() {
-    return sessionStorage.getItem("token");
-}
 
 async function login(email, password) {
     const urlLogin = "http://127.0.0.1:8000/login";
@@ -17,7 +13,7 @@ async function login(email, password) {
             },
             body: JSON.stringify({
                 email: email,
-                contrasenia: password  // Coincide con el esquema esperado en FastAPI
+                contrasenia: password
             })
         });
 
@@ -56,23 +52,28 @@ async function listar(id) {
         return await respuesta.json();
     } catch (error) {
         console.error("Error al obtener datos:", error);
-        return []; // o null dependiendo de cómo lo manejes
+        return []; 
     }
 }
 
-async function crear(nombre, email, contrasenia, rol) {
+async function crear(nombre, email, contrasenia, rol, imagen) {
+    const body = {
+        nombre,
+        email,
+        contrasenia,
+        rol
+    };
+
+    if (imagen && imagen.trim() !== "") {
+        body.imagen = imagen;
+    }
 
     const respuesta = await fetch(url, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-            nombre: nombre,
-            email: email,
-            contrasenia: contrasenia,
-            rol: rol
-        })
+        body: JSON.stringify(body)
     });
 
     if (!respuesta.ok) {
@@ -83,19 +84,26 @@ async function crear(nombre, email, contrasenia, rol) {
     return await respuesta.json();
 }
 
-async function editar(id, nombre, email, rol) {
+async function editar(id, nombre, email, rol, imagen) {
     const urlPut = url + "/" + id;
+
+    const body = {
+        nombre,
+        email,
+        rol
+    };
+
+    if (imagen && imagen.trim() !== "") {
+        body.imagen = imagen;
+    }
+
     return await fetch(urlPut, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${getToken()}`
         },
-        body: JSON.stringify({
-            nombre: nombre,
-            email: email,
-            rol: rol
-        })
+        body: JSON.stringify(body)
     });
 }
 

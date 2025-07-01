@@ -1,149 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MarketPlace</title>  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStain</title>
+    <link rel="icon" href="/assets/img/Logo1.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/bibliotecario.css">
+    <link rel="stylesheet" href="/assets/css/usuarios.css">
 
-  <!--=====================================
-  PLUGINS DE CSS
-  ======================================-->
-
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-  
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  
-  <!-- DataTables -->
-  <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-  <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-
- 
-  <!-- DatePiker -->
-  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
-
- 
-  <!--=====================================
-  PLUGINS DE JAVASCRIPT
-  ======================================-->
-
-  <!-- jQuery -->
-  <script src="/plugins/jquery/jquery.min.js"></script>
-  
-  <!-- Bootstrap 4 -->
-  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-      
-  <!-- AdminLTE App -->
-  <script src="/dist/js/adminlte.js"></script>
-
-  <!-- DataTables -->
-  
-  <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  
-
-  <!-- SweetAlert 2 -->
-  <script src="/plugins/sweetalert2/sweetalert2.all.js"></script>
-  <!-- By default SweetAlert2 doesn't support IE. To enable IE 11 support, include Promise polyfill:-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-
-  <!-- InputMask -->
-  <script src="/plugins/inputmask/jquery.inputmask.js"></script>
-
-  <!-- daterangepicker -->
-
- <!-- daterangepicker -->
-  
-  <script src="/plugins/daterangepicker/daterangepicker.js"></script>
-  
-  <!-- Select2 -->
-  <script src="/plugins/select2/js/select2.min.js"></script>
-
-  <!-- ChartJS -->
-  <script src="/plugins/chart.js/Chart.js"></script>
-
-   <!--Include HTML-->
-  <script type="module" src="/assets/js/include-html-main/include-html.js"></script>
-  
-  <script type="module" src="/App/index.js"></script>
 
 </head>
 
-<!--=====================================
-CUERPO DOCUMENTO
-======================================-->
+<body>
 
-<body class="hold-transition sidebar-mini">
-    
-    <div data-include="/assets/modulos/login.html">     
-        
-    
-    </div>
-        
-    <!-- Site wrapper -->
-    <div class="wrapper" id="sitio">
-        <!--=====================================
-                        NAVBAR
-        ======================================-->
-        
-        <div data-include="/assets/modulos/navbar.html"> </div>
-        
+    <header>
+        <div class="headerContenedor">
+            <div class="logo" onclick="location.hash = '#/home'" style="cursor: pointer;">
+                <img src="/assets/img/Logo21.png" alt="Logo Header 1" class="logoHeader1">
+                <img src="/assets/img/Logo22.png" alt="Logo Header 2" class="logoHeader2">
+            </div>
+            <div class="login">
+                <div>
+                    <i class="far fa-user"></i>
+                </div>
+                <div id="btnLoginRegister">
+                    <a href="#/login" class="btnLoginHeader" data-emailUsuario="" data-idUsuario=""> Login</a>
+                    <a href="#/register" class="btnLoginHeader">Registrarse</a>
+                </div>
+                <div id="usuarioAutenticado" style="display: none;">
+                    <p id="usuarioEmail"></p>
+                    <button id="btnDashboard" style="display: none; margin-left: 10px;">Dashboard</button>
+                    <button id="btnPerfil" style="display: none; margin-left: 10px;">Perfil</button>
+                    <a href="#logout" class="btnLoginHeader">Logout</a>
+                </div>
 
-        <!--=====================================
-                        ASIDE
-        ======================================-->
-        <div data-include="/assets/modulos/menu.html"> </div>
-        
-        <!--=====================================
-                   CONTENIDO BLANK PAGE
-        ======================================-->  
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="contenidoTitulo">Blank Page</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#" class="rutaMenu">Home</a></li>
-                    <li class="breadcrumb-item active contenidoTituloSec"></li>
-                    </ol>
-                </div>
-                </div>
-            </div><!-- /.container-fluid -->
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid" id="contenidoPrincipal">
-       
-                </div>
-            </section>
-            <!-- /.content -->
+            </div>
         </div>
-        <!-- /.content-wrapper -->
+    </header>
 
-        <!--=====================================
-                        FOOTER
-        ======================================-->
-        <div data-include="/assets/modulos/footer.html"> </div>
+    <main>
+    </main>
 
+    <footer>
+        <h2>© 2025 Tpi Laboratorio IV. Todos Los Derechos Reservados</h2>
+        <div id="footerDynamicContent"></div>
+        <div id="logoGit">
+            <a href="https://github.com/GiordVan/TPI_LabIV" target="_blank">
+                <img src="https://cdn0.iconfinder.com/data/icons/shift-logotypes/32/Github-512.png"
+                    alt="https://github.com/GiordVan/TPI_LabIV">
+            </a>
+        </div>
 
-    </div>  
-    <!-- ./wrapper -->
-    
+    </footer>
+    <script type="module" src="/App/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
+
 </html>

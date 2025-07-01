@@ -1,0 +1,29 @@
+:root {
+  --MarronOscuro: #190b00;
+  --MarronClaro: #9b5c1d;
+  --Naranja: #f87000;
+  --Beige: #eeeed2;
+  --Blanco: #f8f4e9;
+  --FuentePrincipal: 'Roboto', sans-serif;
+  --FuenteSecundaria: 'Poppins', sans-serif;
+}
+
+@font-face {
+    font-family: "Roboto Regular";
+    src: url(/assets/font/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Roboto Bold";
+    src: url(/assets/font/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: "Roboto Light Italic";
+    src: url(/assets/font/Roboto-LightItalic.ttf);
+}
+
+@font-face {
+    font-family: "Blanka";
+    src: url(/assets/font/Blanka-Regular.otf);
+}

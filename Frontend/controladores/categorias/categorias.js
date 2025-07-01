@@ -1,153 +1,164 @@
-import { categoriasServices } from "../../servicios/categorias-servicios.js";
-import { newRegister } from "./new.js";
-import { editRegister } from "./new.js";
+import { categoriasServices } from "../../../servicios/categorias-servicios.js";
+import { librosServices } from "../../../servicios/libros-servicios.js";
+import { prestamosServices } from "../../../servicios/prestamos-servicios.js";
+import { abrirModalCategoria } from "./newCategoria.js";
 
+export async function categorias() {
+    const main = document.querySelector("main");
+    main.innerHTML = "";
 
+    const contenedor = document.createElement("div");
+    contenedor.classList.add("contenedor-usuarios");
 
-const htmlCategorias = 
-`<div class="card">
-   <div class="card-header">
-   
-   <h3 class="card-title"> 
-       <a class="btn bg-dark btn-sm btnAgregarCategoria" href="#/newCategoria">Agregar Categoria</a>
-   </h3>
+    const izquierda = document.createElement("div");
+    izquierda.classList.add("usuarios-izquierda");
 
-   </div>
+    const tabla = document.createElement("table");
+    tabla.classList.add("tabla-usuarios");
+    tabla.innerHTML = `
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
 
-   <!-- /.card-header -->
-   <div class="card-body">            
-   <table id="categoriasTable" class="table table-bordered table-striped tableCategoria" width="100%">
-       <thead>
-           <tr>
-           <th># </th>
-           <th>Categorias</th>
-           <th>Acciones</th>
-           </tr>
-       </thead>
-   
-   </table>
-   </div>
-   <!-- /.card-body -->
-</div> `; 
+    const tbody = tabla.querySelector("tbody");
 
-export async function Categorias(){
-    let d = document
-    let res='';
-    d.querySelector('.contenidoTitulo').innerHTML = 'Categorías';
-    d.querySelector('.contenidoTituloSec').innerHTML = '';
-    d.querySelector('.rutaMenu').innerHTML = "Categorías";
-    d.querySelector('.rutaMenu').setAttribute('href',"#/categorias");
-    let cP =d.getElementById('contenidoPrincipal');
-    
-    res = await categoriasServices.listar();
-    res.forEach(element => {
-      element.action = "<div class='btn-group'><a class='btn btn-warning btn-sm mr-1 rounded-circle btnEditarCategoria'  href='#/editCategoria' data-idCategoria='"+ element.id +"'> <i class='fas fa-pencil-alt'></i></a><a class='btn btn-danger btn-sm rounded-circle removeItem btnBorrarCategoria'href='#/delCategoria' data-idCategoria='"+ element.id +"'><i class='fas fa-trash'></i></a></div>";
-    });  
-     
-    cP.innerHTML =  htmlCategorias;
- 
-    llenarTabla(res);
+    // Declaramos lista para usarla más abajo
+    let lista = [];
 
-    let btnAgregar = d.querySelector(".btnAgregarCategoria");
-   
+    try {
+        // 🔹 Cargar categorías
+        lista = await categoriasServices.listar();
+        lista.forEach(categoria => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${categoria.id}</td>
+                <td>${categoria.nombre}</td>
+                <td>${categoria.descripcion}</td>
+                <td>
+                    <button class="btn-editar" title="Editar">✏️</button>
+                    <button class="btn-borrar" title="Borrar">🗑️</button>
+                </td>
+            `;
 
-    btnAgregar.addEventListener("click", agregar);
-    for(let i=0 ; i< btnEditar.length ; i++){
-        btnEditar[i].addEventListener("click", editar);
-        btnBorrar[i].addEventListener("click", borrar);
-      }
+            tr.querySelector(".btn-editar").addEventListener("click", () => abrirModalCategoria(categoria));
+            tr.querySelector(".btn-borrar").addEventListener("click", async () => {
+                if (confirm(`¿Eliminar categoría '${categoria.nombre}'?`)) {
+                    try {
+                        await categoriasServices.borrar(categoria.id);
+                        tr.remove();
+                    } catch {
+                        alert("Error al eliminar categoría");
+                    }
+                }
+            });
 
-}
+            tbody.appendChild(tr);
+        });
 
-function enlazarEventos( oSettings){
-    let d = document;
-    let btnEditar = d.querySelectorAll(".btnEditarCategoria");
-    let btnBorrar = d.querySelectorAll(".btnBorrarCategoria");
+        izquierda.appendChild(tabla);
 
-    for(let i=0 ; i< btnEditar.length ; i++){
-        btnEditar[i].addEventListener("click", editar);
-        btnBorrar[i].addEventListener("click", borrar);
-    }    
+        // 🔹 Crear columna derecha
+        const derecha = document.createElement("div");
+        derecha.classList.add("usuarios-derecha");
 
-}
+        const cardCrear = document.createElement("div");
+        cardCrear.classList.add("card");
+        cardCrear.textContent = "➕ Crear categoría";
+        cardCrear.addEventListener("click", () => abrirModalCategoria());
+        derecha.appendChild(cardCrear);
 
-function agregar(){
-    newRegister();
+        // 🔹 Obtener libros y préstamos
+        const libros = await librosServices.listar();
+        const prestamos = await prestamosServices.listar();
 
-}
-function editar(){
-   let id = this.getAttribute('data-idCategoria') ;
-   editRegister(id);
-    
-}
+        // Mapa de libros por ID
+        const mapaLibros = {};
+        libros.forEach(libro => {
+            mapaLibros[libro.id] = libro;
+        });
 
-async function borrar(){
-    let id = this.getAttribute('data-idCategoria') ;
-    let borrar=0;
-  await Swal.fire({
-        title: 'Está seguro que desea eliminar el registro?',
-        showDenyButton: true,
-        confirmButtonText: 'Si',
-        denyButtonText: `Cancelar`,
-  
-        focusDeny: true
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-           borrar = 1;
-        } else if (result.isDenied) {
-           borrar = 0 ;
-           Swal.fire('Se canceló la eliminación', '', 'info');
-        }
-      })
-      if (borrar === 1)
-            await categoriasServices.borrar(id); 
-      window.location.href = "#/categorias";  
-}
-
-function llenarTabla(res){ 
-   
-
-    new DataTable('#categoriasTable', {
-        responsive:true,
-        data : res,
-        columns: [
-            { data: 'id' },    
-            { data: 'descripcion' },
-            { data: 'action', "orderable":false }
-            
-        ],
-        fnDrawCallback: function ( oSettings) {
-            enlazarEventos( oSettings); },
-        deferRender: true,
-        retrive: true,
-        processing: true,
-        language: {
-            sProcessing:     "Procesando...",
-            sLengthMenu:     "Mostrar _MENU_ registros",
-            sZeroRecords:    "No se encontraron resultados",
-            sEmptyTable:     "Ningún dato disponible en esta tabla",
-            sInfo:           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-            sInfoEmpty:      "Mostrando registros del 0 al 0 de un total de 0",
-            sInfoFiltered:   "(filtrado de un total de _MAX_ registros)",
-            sInfoPostFix:    "",
-            sSearch:         "Buscar:",
-            sUrl:            "",
-            sInfoThousands:  ",",
-            sLoadingRecords: "Cargando...",
-            oPaginate: {
-                sFirst:    "Primero",
-                sLast:     "Último",
-                sNext:     "Siguiente",
-                sPrevious: "Anterior"
-            },
-            oAria: {
-                sSortAscending:  ": Activar para ordenar la columna de manera ascendente",
-                sSortDescending: ": Activar para ordenar la columna de manera descendente"
+        // Conteo de libros por categoría
+        const cantidadPorCategoria = {};
+        libros.forEach(libro => {
+            const idCat = libro.categoria?.id ?? null;
+            if (idCat !== null) {
+                cantidadPorCategoria[idCat] = (cantidadPorCategoria[idCat] || 0) + 1;
             }
-                            
-        }                           
-    });
+        });
 
-} 
-  
+        let maxLibrosCatId = null;
+        let maxLibrosCantidad = -1;
+        for (const [catId, count] of Object.entries(cantidadPorCategoria)) {
+            if (count > maxLibrosCantidad) {
+                maxLibrosCantidad = count;
+                maxLibrosCatId = parseInt(catId);
+            }
+        }
+
+        // Conteo de préstamos por categoría
+        const prestadosPorCategoria = {};
+        prestamos.forEach(prestamo => {
+            const libroId = prestamo.libro_id || prestamo.libro;
+            const libro = mapaLibros[libroId];
+            const categoriaId = libro?.categoria?.id ?? null;
+
+            if (categoriaId !== null) {
+                prestadosPorCategoria[categoriaId] = (prestadosPorCategoria[categoriaId] || 0) + 1;
+            }
+        });
+
+        let maxPrestadosCatId = null;
+        let maxPrestadosCantidad = -1;
+        for (const [catId, count] of Object.entries(prestadosPorCategoria)) {
+            if (count > maxPrestadosCantidad) {
+                maxPrestadosCantidad = count;
+                maxPrestadosCatId = parseInt(catId);
+            }
+        }
+
+        const catMaxLibros = lista.find(c => c.id === maxLibrosCatId);
+        const catMaxPrestados = lista.find(c => c.id === maxPrestadosCatId);
+
+        // 🔹 Función para crear tarjetas
+        function crearCard(texto, numero) {
+            const card = document.createElement("div");
+            card.classList.add("card", "card-total");
+
+            const pTexto = document.createElement("p");
+            pTexto.classList.add("texto");
+            pTexto.textContent = texto;
+
+            const pNumero = document.createElement("p");
+            pNumero.classList.add("numero");
+            pNumero.textContent = numero;
+
+            card.appendChild(pTexto);
+            card.appendChild(pNumero);
+            return card;
+        }
+
+        derecha.appendChild(
+            crearCard("Categoría con mayor cantidad de libros:", catMaxLibros ? `${catMaxLibros.nombre} (${maxLibrosCantidad})` : "N/A")
+        );
+
+        derecha.appendChild(
+            crearCard("Categoría de libros más popular (prestados):", catMaxPrestados ? `${catMaxPrestados.nombre} (${maxPrestadosCantidad})` : "N/A")
+        );
+
+        // 🔹 Agregar todo al DOM
+        contenedor.appendChild(izquierda);
+        contenedor.appendChild(derecha);
+        main.appendChild(contenedor);
+
+    } catch (err) {
+        console.error("Error cargando categorías o estadísticas:", err);
+        tbody.innerHTML = `<tr><td colspan="4">Error al cargar categorías</td></tr>`;
+    }
+}
