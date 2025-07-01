@@ -61,7 +61,7 @@ function renderizarLibros(libros) {
         div.classList.add("libro");
 
         const img = document.createElement("img");
-        img.src = libro.imagen || "https://gtcdn.info/dune/1.1.0.17/images/dune/gui/textures/icons/gameplay/placeables/t_ui_iconplacpropatrebooks02_d.webp?v=1751323877535";
+        img.src = libro.imagen || "../../assets/img/LibroSinFoto.webp";
         img.alt = libro.titulo;
 
         const titulo = document.createElement("h4");

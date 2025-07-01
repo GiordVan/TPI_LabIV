@@ -29,14 +29,15 @@ async function listar(id) {
     }
 }
 
-async function crear(titulo, autor, isbn, editorial, categoria_id, cantidad = 1) {
+async function crear(titulo, autor, isbn, editorial, categoria_id, cantidad = 1, imagen = null) {
     const body = {
         titulo,
         autor,
         isbn,
         editorial,
         categoria_id,
-        cantidad
+        cantidad, 
+        imagen
     };
 
     try {
@@ -61,7 +62,7 @@ async function crear(titulo, autor, isbn, editorial, categoria_id, cantidad = 1)
     }
 }
 
-async function editar(id, titulo, autor, isbn, editorial, categoria_id, cantidad = 1) {
+async function editar(id, titulo, autor, isbn, editorial, categoria_id, cantidad = 1, imagen = null) {
     const urlPut = url + "/" + id;
 
     const body = {
@@ -70,7 +71,8 @@ async function editar(id, titulo, autor, isbn, editorial, categoria_id, cantidad
         isbn,
         editorial,
         categoria_id,
-        cantidad
+        cantidad,
+        imagen
     };
 
     try {

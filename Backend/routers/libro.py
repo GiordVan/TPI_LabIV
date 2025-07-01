@@ -18,12 +18,14 @@ def create_libro(libro: Libro, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Categoría no encontrada")
 
     nuevo_libro = LibroModel(
-        titulo=libro.titulo,
-        autor=libro.autor,
-        isbn=libro.isbn,
-        editorial=libro.editorial,
-        categoria_id=libro.categoria_id
-    )
+    titulo=libro.titulo,
+    autor=libro.autor,
+    isbn=libro.isbn,
+    editorial=libro.editorial,
+    categoria_id=libro.categoria_id,
+    cantidad=libro.cantidad,
+    imagen=libro.imagen 
+)
     db.add(nuevo_libro)
     db.commit()
     db.refresh(nuevo_libro)
@@ -58,6 +60,7 @@ def update_libro(libro_id: int, libro_update: Libro, db: Session = Depends(get_d
     libro.editorial = libro_update.editorial
     libro.categoria_id = libro_update.categoria_id
     libro.cantidad = libro_update.cantidad
+    libro.imagen = libro_update.imagen
 
 
     db.commit()

@@ -14,8 +14,9 @@ class Libro(Base):
     isbn = Column(String(13), unique=True, index=True, nullable=False)
     editorial = Column(String(100), nullable=False, default="Desconocido")
     categoria_id = Column(Integer, ForeignKey("categorias.id"), nullable=False)
-    cantidad = Column(SmallInteger, nullable=False, default=1)  # <-- agregado aquí
+    cantidad = Column(SmallInteger, nullable=False, default=1)  
+    imagen = Column(String(255), nullable=True)
 
-    # Relaciones
+
     categoria = relationship("Categoria", back_populates="libros")
     prestamos = relationship("Prestamo", back_populates="libro")

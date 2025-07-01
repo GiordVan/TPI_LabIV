@@ -33,6 +33,9 @@ export async function abrirModalLibro(libro = null) {
                         `).join('')}
                     </select>
                 </label>
+                <label>Imagen (URL):
+    <input type="url" name="imagen" value="${libro?.imagen || ""}">
+</label>
                 <div class="acciones">
                     <button type="submit">${libro ? "Guardar Cambios" : "Crear Libro"}</button>
                     <button type="button" class="btn-cancelar">Cancelar</button>
@@ -54,10 +57,10 @@ export async function abrirModalLibro(libro = null) {
 
         try {
             if (libro) {
-                await librosServices.editar(libro.id, datos.titulo, datos.autor, datos.isbn, datos.editorial, datos.categoria_id);
+                await librosServices.editar(libro.id, datos.titulo, datos.autor, datos.isbn, datos.editorial, datos.categoria_id, 1, datos.imagen);
                 alert("Libro actualizado correctamente");
             } else {
-                await librosServices.crear(datos.titulo, datos.autor, datos.isbn, datos.editorial, datos.categoria_id);
+                await librosServices.crear(datos.titulo, datos.autor, datos.isbn, datos.editorial, datos.categoria_id, 1, datos.imagen);
                 alert("Libro creado correctamente");
             }
             modal.remove();

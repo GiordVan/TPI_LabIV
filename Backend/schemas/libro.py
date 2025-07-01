@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import Field, ConfigDict, BaseModel, PositiveInt
+from pydantic import Field, ConfigDict, BaseModel, PositiveInt, HttpUrl  
 from schemas.categoria import Categoria
 
 class Libro(BaseModel):
@@ -10,6 +10,8 @@ class Libro(BaseModel):
     editorial: Optional[str] = Field(default="Desconocido", max_length=100)
     categoria_id: int
     cantidad: int = Field(default=1, ge=0, le=1, description="Cantidad: 0 o 1")
+    imagen: Optional[str] = Field(default=None, max_length=255) 
+
 
 
     model_config = ConfigDict(from_attributes=True)
