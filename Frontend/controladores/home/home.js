@@ -49,7 +49,6 @@ function renderizarLibros(libros) {
         return;
     }
 
-    // 📌 Primero los libros con stock, luego sin stock
     const ordenados = libros.slice().sort((a, b) => {
         const aSinStock = a.cantidad === 0;
         const bSinStock = b.cantidad === 0;

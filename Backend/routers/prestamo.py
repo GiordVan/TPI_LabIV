@@ -11,7 +11,7 @@ from models.libros import Libro as LibroModel
 
 prestamo_router = APIRouter()
 
-@prestamo_router.post("/prestamos", tags=["Préstamos"], response_model=Prestamo,
+@prestamo_router.post("/prestamos", tags=["Prestamos"], response_model=Prestamo,
     dependencies=[Depends(JWTBearer())])
 def crear_prestamo(prestamo: Prestamo, db: Session = Depends(get_db)):
     libro = db.query(LibroModel).filter(LibroModel.id == prestamo.libro_id).first()
@@ -37,7 +37,7 @@ def crear_prestamo(prestamo: Prestamo, db: Session = Depends(get_db)):
     return nuevo_prestamo
 
 
-@prestamo_router.get("/prestamos", tags=["Prestamos"], response_model=List[Prestamo])
+@prestamo_router.get("/prestamos", tags=["Prestamos"], response_model=List[Prestamo], dependencies=[Depends(JWTBearer())])
 def obtenerPrestamos(
     request: Request,
     usuario_id: Optional[int] = Query(None),
